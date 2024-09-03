@@ -572,6 +572,14 @@ video {
   top: 1rem;
 }
 
+.bottom-\[-2rem\]{
+  bottom: -2rem;
+}
+
+.bottom-\[0rem\]{
+  bottom: 0rem;
+}
+
 .z-\[10\]{
   z-index: 10;
 }

@@ -70,13 +70,10 @@ class View {
     const uniqueChatHistory = [...new Set(this.chatHistory)];
 
     uniqueChatHistory.forEach((entry) => {
-      let li = document.createElement("li");
-      let ul = document.createElement("ul");
-      ul.classList.add("space-y-2");
+      let li = document.createElement("p");
       li.classList.add("bg-gray-100", "p-2", "rounded-lg");
-      li.innerHTML = entry.user;
-      ul.appendChild(li);
-      history_body.appendChild(ul);
+      li.textContent = entry.user;
+      historyList.appendChild(li);
     });
   }
 
@@ -94,8 +91,8 @@ class View {
     let loading = document.createElement("div");
     user.classList.add("user");
 
-    loading.innerHTML = "loadind...";
-    user.innerHTML = this.input_mass.value;
+    loading.textContent = "loadind...";
+    user.textContent = this.input_mass.value;
     this.input_mass.value = "";
     this.article_res.appendChild(user);
     this.article_res.appendChild(loading);
@@ -127,8 +124,8 @@ class View {
           break;
 
         case "who goes you":
-          let goes = document.createElement("div");
-          goes.innerHTML = "This Aro askAi upon the ship wida";
+          let goes = document.createElement("p");
+          goes.textContent = "This Aro askAi upon the ship wida"; // Fixed the text to avoid HTML line breaks issue
           AIDiv.appendChild(goes);
           break;
 
@@ -138,8 +135,8 @@ class View {
           for await (const chunk of result.stream) {
             let chunkText = await chunk.text();
             chunkText = chunkText.replace(/\*\*(.*?)\*\*/g, "");
-            let p = document.createElement("div");
-            p.innerHTML = chunkText;
+            let p = document.createElement("p");
+            p.textContent = chunkText;
             AIDiv.appendChild(p);
 
             this.chatHistory.push({ user: prompt, reply: chunkText });
@@ -149,8 +146,8 @@ class View {
       }
     } catch (error) {
       let p = document.createElement("p");
-      p.innerHTML = `error ${error}`;
-      //
+      p.textContent = `error generating Ai ${error}`;
+      AIDiv.console.error("Error :", error);
     } finally {
       loading.remove();
       this.updateHistoryMenu();
