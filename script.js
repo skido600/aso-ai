@@ -65,16 +65,18 @@ class View {
   }
   updateHistoryMenu() {
     const historyList = this.history.querySelector("ul");
-    historyList.innerHTML = ""; // Clear the existing list
+    historyList.innerHTML = "";
 
-    // Ensure no duplicates in chatHistory
     const uniqueChatHistory = [...new Set(this.chatHistory)];
 
     uniqueChatHistory.forEach((entry) => {
-      let li = document.createElement("p");
+      let li = document.createElement("li");
+      let ul = document.createElement("ul");
+      ul.classList.add("space-y-2");
       li.classList.add("bg-gray-100", "p-2", "rounded-lg");
       li.innerHTML = entry.user;
-      historyList.appendChild(li);
+      ul.appendChild(li);
+      history_body.appendChild(ul);
     });
   }
 
