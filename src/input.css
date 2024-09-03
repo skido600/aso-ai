@@ -38,7 +38,7 @@ body {
 
 ::-webkit-scrollbar-thumb {
   cursor: pointer;
-  background-color: black;
+  background-color: transparent;
 }
 
 ::-webkit-scrollbar-track {

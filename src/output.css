@@ -568,30 +568,6 @@ video {
   left: 0px;
 }
 
-.top-0{
-  top: 0px;
-}
-
-.top-3{
-  top: 0.75rem;
-}
-
-.top-\[2rem\]{
-  top: 2rem;
-}
-
-.top-\[1\.4rem\]{
-  top: 1.4rem;
-}
-
-.top-\[1\.2rem\]{
-  top: 1.2rem;
-}
-
-.top-\[1\.1rem\]{
-  top: 1.1rem;
-}
-
 .top-\[1rem\]{
   top: 1rem;
 }
@@ -823,7 +799,7 @@ body {
 
 ::-webkit-scrollbar-thumb {
   cursor: pointer;
-  background-color: black;
+  background-color: transparent;
 }
 
 ::-webkit-scrollbar-track {
