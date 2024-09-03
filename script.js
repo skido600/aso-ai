@@ -133,7 +133,6 @@ class View {
           const result = await model.generateContentStream(prompt);
           for await (const chunk of result.stream) {
             let chunkText = await chunk.text();
-            chunkText = chunkText.replace(/\*\*(.*?)\*\*/g, "");
             let p = document.createElement("div");
             p.innerHTML = chunkText;
             AIDiv.appendChild(p);

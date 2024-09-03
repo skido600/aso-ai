@@ -612,6 +612,18 @@ video {
   height: calc(100vh - 6rem);
 }
 
+.h-screen{
+  height: 100vh;
+}
+
+.h-\[50vh\]{
+  height: 50vh;
+}
+
+.h-\[60vh\]{
+  height: 60vh;
+}
+
 .w-6{
   width: 1.5rem;
 }
