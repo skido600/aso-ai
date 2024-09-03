@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./src/output.css" />
+    <title>Ask AI</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/generative-ai": "https://esm.run/@google/generative-ai"
+        }
+      }
+    </script>
+  </head>
+  <body class="bg-gray-100 text-gray-800">
+    <header class="bg-white shadow-md">
+      <nav class="flex justify-between items-center px-6 py-4">
+        <img
+          id="menu"
+          src="./img/menu_24dp_5F6368_FILL0_wght400_GRAD0_opsz24 - Copy.svg"
+          alt="Menu Icon"
+          class="w-6 h-6 cursor-pointer"
+        />
+        <div class="text-xl font-semibold">
+          <div class="flex justify-center items-center">
+            <img
+              src="./img/2289_SkVNQSBGQU1PIDEwMjgtMTIy.jpg"
+              alt=""
+              class="w-[3rem]"
+            />
+            <span class="text-blue-400">Ask</span>AI
+          </div>
+        </div>
+        <img
+          id="erase"
+          src="./img/ink_eraser_24dp_5F6368_FILL0_wght400_GRAD0_opsz24 (1).svg"
+          alt="Eraser Icon"
+          class="w-6 h-6 cursor-pointer"
+        />
+      </nav>
+      <!-- //history -->
+      <menu
+        id="history"
+        class="absolute top-[1rem] left-0 translate-x-[-410px] transition-all bg-white shadow-md lemdi h-[70vh] z-[10] w-[70%] sm:w-[30%] p-4 overflow-y-auto mt-[4rem]"
+      >
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-semibold mb-4">History</h2>
+          <img
+            id="history_clear"
+            src="/img/clear_all_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg"
+            alt="clear"
+            class="cursor-pointer"
+          />
+        </div>
+        <div id="history_body">
+          <ul class="space-y-2">
+            <li class="bg-gray-100 p-2 rounded-lg">Message 1</li>
+            <li class="bg-gray-100 p-2 rounded-lg">Message 2</li>
+            <li class="bg-gray-100 p-2 rounded-lg">Message 3</li>
+          </ul>
+        </div>
+      </menu>
+    </header>
+
+    <!-- Message and Reply Sections -->
+    <div
+      id="message_wrapper "
+      class="flex justify-between flex-col h-[calc(100vh-6rem)] p-4"
+    >
+      <article
+        id="article_res"
+        class="overflow-y-auto flex justify-around gap-[10px] flex-col"
+      ></article>
+
+      <!-- sending -->
+      <main class="flex relative bottom-[-2rem">
+        <input
+          id="input_mass"
+          type="text"
+          placeholder="Type your message..."
+          class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <button
+          id="send_mass"
+          class="flex items-center bg-blue-500 text-white px-4 py-2 rounded-lg ml-2 hover:bg-blue-600 focus:outline-none"
+        >
+          <span>Send</span>
+        </button>
+      </main>
+    </div>
+    <script type="module" src="/script.js"></script>
+  </body>
+</html>
