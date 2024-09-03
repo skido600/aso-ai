@@ -66,7 +66,6 @@ class View {
   updateHistoryMenu() {
     const historyList = this.history.querySelector("ul");
     historyList.innerHTML = "";
-
     const uniqueChatHistory = [...new Set(this.chatHistory)];
 
     uniqueChatHistory.forEach((entry) => {
@@ -125,7 +124,7 @@ class View {
 
         case "who goes you":
           let goes = document.createElement("p");
-          goes.textContent = "This Aro askAi upon the ship wida"; // Fixed the text to avoid HTML line breaks issue
+          goes.innerHTML = "This Aro askAi upon the ship wida"; // Fixed the text to avoid HTML line breaks issue
           AIDiv.appendChild(goes);
           break;
 
@@ -135,8 +134,8 @@ class View {
           for await (const chunk of result.stream) {
             let chunkText = await chunk.text();
             chunkText = chunkText.replace(/\*\*(.*?)\*\*/g, "");
-            let p = document.createElement("p");
-            p.textContent = chunkText;
+            let p = document.createElement("div");
+            p.innerHTML = chunkText;
             AIDiv.appendChild(p);
 
             this.chatHistory.push({ user: prompt, reply: chunkText });
@@ -146,7 +145,7 @@ class View {
       }
     } catch (error) {
       let p = document.createElement("p");
-      p.textContent = `error generating Ai ${error}`;
+      p.innerHTML = `error ${error}`;
       AIDiv.console.error("Error :", error);
     } finally {
       loading.remove();
