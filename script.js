@@ -126,7 +126,7 @@ class View {
 
         case "who goes you":
           let goes = document.createElement("div");
-          goes.innerHTML = "This Aro askAi upon the ship wida"; // Fixed the text to avoid HTML line breaks issue
+          goes.innerHTML = "This Aro askAi upon the ship wida";
           AIDiv.appendChild(goes);
           break;
 
