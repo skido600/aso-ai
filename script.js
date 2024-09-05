@@ -14,7 +14,6 @@ class View {
     this.history_body = document.getElementById("history_body");
     this.history_clear = document.getElementById("history_clear");
 
-    console.log(this.history_body);
     // Show history
     this.menu.addEventListener("click", () => {
       this.history.classList.toggle("translate-x-0");
@@ -35,7 +34,6 @@ class View {
 
     // Erase chat history
     this.erase.addEventListener("click", () => {
-      this.history_body.innerHTML = "";
       this.article_res.innerHTML = "";
     });
     this.history_clear.addEventListener("click", () => {
@@ -106,7 +104,7 @@ class View {
     user.classList.add("user");
 
     loading.classList.add("loader");
-    user.textContent = this.input_mass.value;
+    user.innerHTML = this.input_mass.value;
     this.input_mass.value = "";
     this.article_res.appendChild(user);
     this.article_res.appendChild(loading);
