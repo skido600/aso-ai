@@ -43,7 +43,7 @@ class View {
     });
     // Hide history on input focus
     this.input_mass.addEventListener("focus", () => {
-      this.history.classList.add("translate-x-[-410px]");
+      this.history.classList.add("translate-x-[-810px]");
     });
 
     // Send
