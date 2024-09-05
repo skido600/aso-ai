@@ -46,8 +46,11 @@ body {
   background-color: #b9b7bd;
   color: black;
   margin-bottom: 1rem;
+  /* border-top-left-radius: 40px; */
+  border-top-right-radius: 40px;
   border-bottom-right-radius: 40px;
-  border-top-left-radius: 0px;
+  border-bottom-left-radius: 40px;
+  /* border-top-left-radius: 0px; */
   padding: 20px;
 }
 
@@ -72,4 +75,19 @@ body {
 
 .reply-main {
   @apply bg-gray-100 p-4 rounded-lg;
+}
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 40px;
+  aspect-ratio: 4;
+  background: radial-gradient(circle closest-side, #b9b7bd 90%, #0000) 0 /
+    calc(100% / 3) 100% space;
+  clip-path: inset(0 100% 0 0);
+  animation: l1 1s steps(4) infinite;
+}
+@keyframes l1 {
+  to {
+    clip-path: inset(0 -34% 0 0);
+  }
 }

@@ -105,7 +105,7 @@ class View {
     let loading = document.createElement("div");
     user.classList.add("user");
 
-    loading.textContent = "loading...";
+    loading.classList.add("loader");
     user.textContent = this.input_mass.value;
     this.input_mass.value = "";
     this.article_res.appendChild(user);
