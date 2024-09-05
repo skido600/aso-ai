@@ -18,17 +18,17 @@ class View {
     // Show history
     this.menu.addEventListener("click", () => {
       this.history.classList.toggle("translate-x-0");
-      this.history.classList.toggle("translate-x-[-410px]");
+      this.history.classList.toggle("translate-x-[-810px]");
     });
 
     // Hide history when clicking outside of it
     document.addEventListener("mousedown", (event) => {
-      if (!this.history.classList.contains("translate-x-[-410px]")) {
+      if (!this.history.classList.contains("translate-x-[-810px]")) {
         if (
           !this.history.contains(event.target) &&
           !this.menu.contains(event.target)
         ) {
-          this.history.classList.add("translate-x-[-410px]");
+          this.history.classList.add("translate-x-[-810px]");
         }
       }
     });
