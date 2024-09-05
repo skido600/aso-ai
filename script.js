@@ -3,6 +3,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 class View {
   constructor() {
     this.chatHistory = [];
+    this.aiIMG = ["2289_SkVNQSBGQU1PIDEwMjgtMTIy.jpg"];
     this.menu = document.getElementById("menu");
     this.history = document.getElementById("history");
     this.input_mass = document.getElementById("input_mass");
@@ -36,8 +37,6 @@ class View {
     this.erase.addEventListener("click", () => {
       this.history_body.innerHTML = "";
       this.article_res.innerHTML = "";
-      localStorage.removeItem("chatHistory");
-      localStorage.removeItem("article");
     });
     this.history_clear.addEventListener("click", () => {
       this.history_body.innerHTML = "";
@@ -77,15 +76,31 @@ class View {
   }
 
   async getAi() {
-    const API_KEY = "AIzaSyAoJ49Zq_rSHmM7hCv0MX3xMdSMDi7L_II";
+    const API_KEY = "AIzaSyCKwRjx0WuHdnW6-sIxewirI1LoZBjf9zw";
     const genAI = new GoogleGenerativeAI(API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({
+      model: "gemini-1.5-flash",
+      systemInstruction:
+        "Your name is Askai. Whenever you're asked about your creator, say: 'I was created by an amazing guy named Leowave. His real name is Leonard Ebisi, also known as Leo X.' replace all * or ** from your responses to <strong>. Whenever you're asked, 'Did you know Leowave, Ebisi Leonard, or Leo X?' answer: 'Ooh, of course! Leowave, also known as Leo X, created me.'",
+    });
     const prompt = this.input_mass.value.trim();
 
     if (prompt === "") return;
 
+    let AllAI = document.createElement("div");
+    AllAI.classList.add("ai-response-container");
+    //img
+    let img = document.createElement("img");
+    img.src = `/img/${this.aiIMG}`;
+    img.alt = "AI Image";
+    img.classList.add("ai-image");
+
     let AIDiv = document.createElement("div");
     AIDiv.classList.add("reply_main");
+
+    AllAI.appendChild(img);
+    AllAI.appendChild(AIDiv);
+
     let user = document.createElement("div");
     let loading = document.createElement("div");
     user.classList.add("user");
@@ -97,59 +112,25 @@ class View {
     this.article_res.appendChild(loading);
 
     try {
-      switch (prompt.toLowerCase()) {
-        case "who created you":
-        case "leowave":
-          let p = document.createElement("p");
-          p.innerHTML =
-            "I was created by Leonard Ebisi, also known as Leowave—a passionate and dedicated frontend developer with growing expertise in JavaScript, React, Node.js, and Python. With a deep love for JavaScript, Leowave is steadily advancing their skills in both frontend and backend development. They have a strong foundation in React, often working on projects that involve building responsive web applications using modern tools like Tailwind CSS and Vite.";
-          AIDiv.appendChild(p);
-          break;
+      const result = await model.generateContentStream(prompt);
+      for await (const chunk of result.stream) {
+        let chunkText = await chunk.text();
+        let p = document.createElement("div");
+        p.innerHTML = chunkText;
+        AIDiv.appendChild(p);
 
-        case "i need leowave":
-        case "how can i connect":
-        case "portfolio":
-          let socialMediaP = document.createElement("p");
-          socialMediaP.innerHTML = `
-        Connect to Leowave on social media:
-        <br/>
-        <a href="https://www.linkedin.com/in/leo-wave-309637239/" target="_blank" rel="noopener noreferrer">
-            <img src="https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Badge"/>
-        </a>
-        <a href="https://x.com/Momentum1962?t=gtxbxbdJC5P54Xmr05JvgA&s=09" target="_blank" rel="noopener noreferrer">
-            <img src="https://img.shields.io/badge/Twitter-blue?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter Badge"/>
-        </a>`;
-          AIDiv.appendChild(socialMediaP);
-          break;
-
-        case "who goes you":
-          let goes = document.createElement("p");
-          goes.innerHTML = "This Aro askAi upon the ship wida"; // Fixed the text to avoid HTML line breaks issue
-          AIDiv.appendChild(goes);
-          break;
-
-        // Render normal
-        default:
-          const result = await model.generateContentStream(prompt);
-          for await (const chunk of result.stream) {
-            let chunkText = await chunk.text();
-            let p = document.createElement("div");
-            p.innerHTML = chunkText;
-            AIDiv.appendChild(p);
-
-            this.chatHistory.push({ user: prompt, reply: chunkText });
-            this.saveChatHistory();
-          }
-          break;
+        this.chatHistory.push({ user: prompt, reply: chunkText });
+        this.saveChatHistory();
       }
     } catch (error) {
       let p = document.createElement("p");
-      p.innerHTML = `error ${error}`;
-      AIDiv.console.error("Error :", error);
+      p.innerHTML = `Error: ${error.message}`;
+      AIDiv.appendChild(p);
+      console.error("Error: ", error);
     } finally {
       loading.remove();
       this.updateHistoryMenu();
-      this.article_res.appendChild(AIDiv);
+      this.article_res.appendChild(AllAI);
     }
   }
 }

@@ -24,11 +24,6 @@ body {
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
 }
-/* #message_wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-} */
 
 /* Scrollbar Styles */
 ::-webkit-scrollbar {
@@ -52,7 +47,7 @@ body {
   color: black;
   margin-bottom: 1rem;
   border-bottom-right-radius: 40px;
-  border-top-left-radius: 40px;
+  border-top-left-radius: 0px;
   padding: 20px;
 }
 
@@ -65,4 +60,16 @@ body {
 /* Api FONT */
 .reply_main {
   font-size: 12px;
+}
+
+.ai-response-container {
+  @apply flex items-start   mb-4;
+}
+
+.ai-image {
+  @apply w-12 h-12 rounded-full;
+}
+
+.reply-main {
+  @apply bg-gray-100 p-4 rounded-lg;
 }

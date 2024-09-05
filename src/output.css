@@ -572,20 +572,16 @@ video {
   top: 1rem;
 }
 
-.bottom-\[-2rem\]{
-  bottom: -2rem;
-}
-
-.bottom-\[0rem\]{
-  bottom: 0rem;
-}
-
 .z-\[10\]{
   z-index: 10;
 }
 
 .mb-4{
   margin-bottom: 1rem;
+}
+
+.mb-\[2rem\]{
+  margin-bottom: 2rem;
 }
 
 .ml-2{
@@ -596,12 +592,12 @@ video {
   margin-top: 4rem;
 }
 
-.mt-\[2rem\]{
-  margin-top: 2rem;
+.mb-\[rem\]{
+  margin-bottom: rem;
 }
 
-.mb-\[2rem\]{
-  margin-bottom: 2rem;
+.mb-\[0rem\]{
+  margin-bottom: 0rem;
 }
 
 .flex{
@@ -618,18 +614,6 @@ video {
 
 .h-\[calc\(100vh-6rem\)\]{
   height: calc(100vh - 6rem);
-}
-
-.h-screen{
-  height: 100vh;
-}
-
-.h-\[50vh\]{
-  height: 50vh;
-}
-
-.h-\[60vh\]{
-  height: 60vh;
 }
 
 .w-6{
@@ -717,10 +701,6 @@ video {
 .bg-white{
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
-.p-2{
-  padding: 0.5rem;
 }
 
 .p-4{
@@ -812,12 +792,6 @@ body {
   border-bottom-right-radius: 20px;
 }
 
-/* #message_wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-} */
-
 /* Scrollbar Styles */
 
 ::-webkit-scrollbar {
@@ -841,7 +815,7 @@ body {
   color: black;
   margin-bottom: 1rem;
   border-bottom-right-radius: 40px;
-  border-top-left-radius: 40px;
+  border-top-left-radius: 0px;
   padding: 20px;
 }
 
@@ -855,6 +829,25 @@ body {
 
 .reply_main {
   font-size: 12px;
+}
+
+.ai-response-container{
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: flex-start;
+}
+
+.ai-image{
+  height: 3rem;
+  width: 3rem;
+  border-radius: 9999px;
+}
+
+.reply-main{
+  border-radius: 0.5rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+  padding: 1rem;
 }
 
 .hover\:bg-blue-600:hover{
