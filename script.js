@@ -123,6 +123,16 @@ class View {
         let chunkText = await chunk.text();
         let p = document.createElement("div");
         // p.classList.add("mt-[2rem]");
+        copy.addEventListener("click", () => {
+          navigator.clipboard
+            .writeText(p.textContent)
+            .then(() => {
+              console.log("success");
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        });
         p.innerText = chunkText;
         AIDiv.appendChild(p);
 
