@@ -4,6 +4,7 @@ class View {
   constructor() {
     this.chatHistory = [];
     this.aiIMG = ["2289_SkVNQSBGQU1PIDEwMjgtMTIy.jpg"];
+    this.copy = ["copy.svg"];
     this.menu = document.getElementById("menu");
     this.history = document.getElementById("history");
     this.input_mass = document.getElementById("input_mass");
@@ -79,7 +80,7 @@ class View {
     const model = genAI.getGenerativeModel({
       model: "gemini-1.5-flash",
       systemInstruction:
-        "Your name is Askai. Whenever you're asked about your creator, say: 'I was created by an amazing guy named Leowave. His real name is Leonard Ebisi, also known as Leo X.' replace all * or ** from your responses to <strong>. Whenever you're asked, 'Did you know Leowave, Ebisi Leonard, or Leo X?' answer: 'Ooh, of course! Leowave, also known as Leo X, created me.'",
+        "Your name is Askai. Whenever you're asked about your creator, say: 'I was created by an amazing guy named Leowave. His real name is Leonard Ebisi, also known as Leo X.' replace all * or ** from your responses to <strong>. Whenever you're asked, 'Did you know Leowave, Ebisi Leonard, or Leo X?' answer: 'Ooh, of course! Leowave, also known as Leo X, created me.",
     });
     const prompt = this.input_mass.value.trim();
 
@@ -93,9 +94,16 @@ class View {
     img.alt = "AI Image";
     img.classList.add("ai-image");
 
+    //copy
+    let copy = document.createElement("img");
+    copy.src = `/img/${this.copy}`;
+    copy.alt = "AI_copy";
+    copy.classList.add("ai-copy");
+
     let AIDiv = document.createElement("div");
     AIDiv.classList.add("reply_main");
 
+    AIDiv.appendChild(copy);
     AllAI.appendChild(img);
     AllAI.appendChild(AIDiv);
 
@@ -114,6 +122,7 @@ class View {
       for await (const chunk of result.stream) {
         let chunkText = await chunk.text();
         let p = document.createElement("div");
+        // p.classList.add("mt-[2rem]");
         p.innerText = chunkText;
         AIDiv.appendChild(p);
 

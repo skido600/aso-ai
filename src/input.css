@@ -62,19 +62,25 @@ body {
 /* Api FONT */
 .reply_main {
   font-size: 12px;
+  padding: 1rem;
 }
 
+.ai-copy {
+  float: right;
+  /* margin: ; */
+  /* margin-bottom: -2rem; */
+}
 .ai-response-container {
-  @apply flex items-start   mb-4;
+  @apply flex items-start  mb-4;
 }
 
 .ai-image {
   @apply w-12 h-12 rounded-full;
 }
 
-.reply-main {
+/* .reply-main {
   @apply bg-gray-100 p-4 rounded-lg;
-}
+} */
 
 /* HTML: <div class="loader"></div> */
 .loader {
