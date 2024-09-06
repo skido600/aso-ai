@@ -857,8 +857,8 @@ body {
   padding: 10px;
   width: -moz-fit-content;
   width: fit-content;
-  background-color: blue;
-  color: white;
+  background-color: rgb(243, 244, 246);
+  color: black;
   display: flex;
   justify-content: center;
   margin: 0 auto;
