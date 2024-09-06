@@ -15,6 +15,7 @@ class View {
     this.history_body = document.getElementById("history_body");
     this.history_clear = document.getElementById("history_clear");
 
+    console.log(this.history_body);
     // Show history
     this.menu.addEventListener("click", () => {
       this.history.classList.toggle("translate-x-0");
@@ -38,9 +39,9 @@ class View {
       this.article_res.innerHTML = "";
     });
     this.history_clear.addEventListener("click", () => {
+      console.log("fm");
       this.history_body.innerHTML = "";
       localStorage.removeItem("chatHistory");
-      localStorage.removeItem("article");
     });
     // Hide history on input focus
     this.input_mass.addEventListener("focus", () => {
@@ -59,19 +60,28 @@ class View {
   //history logic
   saveChatHistory() {
     localStorage.setItem("chatHistory", JSON.stringify(this.chatHistory));
-    localStorage.setItem("article", JSON.stringify(this.article_res));
   }
+  // Update history menu
   updateHistoryMenu() {
-    const historyList = this.history.querySelector("ul");
-    historyList.innerHTML = "";
-    const uniqueChatHistory = [...new Set(this.chatHistory)];
+    let historyList = this.history.querySelector("ul");
+
+    if (!historyList) {
+      historyList = document.createElement("ul");
+      this.history.appendChild(historyList);
+    }
+
+    let uniqueChatHistory = [
+      ...new Set(this.chatHistory.map((entry) => entry.user)),
+    ];
 
     uniqueChatHistory.forEach((entry) => {
-      let li = document.createElement("p");
-      li.classList.add("bg-gray-100", "p-2", "rounded-lg");
-      li.textContent = entry.user;
+      let li = document.createElement("li");
+      li.classList.add("list");
+      li.textContent = entry;
       historyList.appendChild(li);
     });
+
+    this.history_body.appendChild(historyList);
   }
 
   async getAi() {
@@ -112,7 +122,7 @@ class View {
     user.classList.add("user");
 
     loading.classList.add("loader");
-    user.innerHTML = this.input_mass.value;
+    user.textContent = this.input_mass.value;
     this.input_mass.value = "";
     this.article_res.appendChild(user);
     this.article_res.appendChild(loading);
