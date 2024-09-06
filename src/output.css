@@ -820,6 +820,13 @@ body {
   }
 }
 
+.list{
+  margin-top: 1rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+  padding: 1rem;
+}
+
 /* Api FONT */
 
 .reply_main {
@@ -828,9 +835,8 @@ body {
 }
 
 .ai-copy {
+  cursor: pointer;
   float: right;
-  /* margin: ; */
-  /* margin-bottom: -2rem; */
 }
 
 .ai-response-container{

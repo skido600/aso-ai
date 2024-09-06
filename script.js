@@ -1,5 +1,6 @@
 "use strict";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+
 class View {
   constructor() {
     this.chatHistory = [];
@@ -14,8 +15,10 @@ class View {
     this.message = document.getElementById("message");
     this.history_body = document.getElementById("history_body");
     this.history_clear = document.getElementById("history_clear");
+    this.history_ul = document.getElementById("history_ul");
 
-    console.log(this.history_body);
+    console.log(this.history_ul);
+
     // Show history
     this.menu.addEventListener("click", () => {
       this.history.classList.toggle("translate-x-0");
@@ -40,6 +43,7 @@ class View {
     });
     this.history_clear.addEventListener("click", () => {
       console.log("fm");
+
       this.history_body.innerHTML = "";
       localStorage.removeItem("chatHistory");
     });
@@ -57,31 +61,29 @@ class View {
       }
     });
   }
-  //history logic
+
+  // History logic
   saveChatHistory() {
     localStorage.setItem("chatHistory", JSON.stringify(this.chatHistory));
   }
+
   // Update history menu
   updateHistoryMenu() {
-    let historyList = this.history.querySelector("ul");
-
-    if (!historyList) {
-      historyList = document.createElement("ul");
-      this.history.appendChild(historyList);
-    }
-
     let uniqueChatHistory = [
       ...new Set(this.chatHistory.map((entry) => entry.user)),
     ];
 
+    console.log(uniqueChatHistory);
+
     uniqueChatHistory.forEach((entry) => {
       let li = document.createElement("li");
-      li.classList.add("list");
-      li.textContent = entry;
-      historyList.appendChild(li);
+      if (entry.length > 20) {
+        li.textContent = `${entry.slice(0, 20)}......`;
+      } else {
+        li.textContent = entry;
+      }
+      this.history_ul.appendChild(li);
     });
-
-    this.history_body.appendChild(historyList);
   }
 
   async getAi() {
@@ -98,13 +100,14 @@ class View {
 
     let AllAI = document.createElement("div");
     AllAI.classList.add("ai-response-container");
-    //img
+
+    // img
     let img = document.createElement("img");
     img.src = `/img/${this.aiIMG}`;
     img.alt = "AI Image";
     img.classList.add("ai-image");
 
-    //copy
+    // copy
     let copy = document.createElement("img");
     copy.src = `/img/${this.copy}`;
     copy.alt = "AI_copy";
@@ -129,26 +132,31 @@ class View {
 
     try {
       const result = await model.generateContentStream(prompt);
+      let combinedText = "";
+
       for await (const chunk of result.stream) {
         let chunkText = await chunk.text();
+        combinedText += chunkText; // Collect all chunks
+
         let p = document.createElement("div");
-        // p.classList.add("mt-[2rem]");
-        copy.addEventListener("click", () => {
-          navigator.clipboard
-            .writeText(p.textContent)
-            .then(() => {
-              console.log("success");
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        });
         p.innerText = chunkText;
         AIDiv.appendChild(p);
-
-        this.chatHistory.push({ user: prompt, reply: chunkText });
-        this.saveChatHistory();
       }
+
+      // Add click listener for the copy button once
+      copy.addEventListener("click", () => {
+        navigator.clipboard
+          .writeText(combinedText)
+          .then(() => {
+            console.log("success");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      });
+
+      this.chatHistory.push({ user: prompt, reply: combinedText });
+      this.saveChatHistory();
     } catch (error) {
       let p = document.createElement("p");
       p.textContent = `Error: ${error.message}`;

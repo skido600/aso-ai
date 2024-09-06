@@ -60,6 +60,10 @@ body {
   }
 }
 
+.list {
+  @apply bg-gray-50 p-4 mt-4;
+}
+
 /* Api FONT */
 .reply_main {
   font-size: 12px;
@@ -67,9 +71,8 @@ body {
 }
 
 .ai-copy {
+  cursor: pointer;
   float: right;
-  /* margin: ; */
-  /* margin-bottom: -2rem; */
 }
 .ai-response-container {
   @apply flex items-start  mb-4;
