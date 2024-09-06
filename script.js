@@ -114,7 +114,7 @@ class View {
       for await (const chunk of result.stream) {
         let chunkText = await chunk.text();
         let p = document.createElement("div");
-        p.innerHTML = chunkText;
+        p.innerText = chunkText;
         AIDiv.appendChild(p);
 
         this.chatHistory.push({ user: prompt, reply: chunkText });
@@ -122,9 +122,8 @@ class View {
       }
     } catch (error) {
       let p = document.createElement("p");
-      p.innerHTML = `Error: ${error.message}`;
+      p.textContent = `Error: ${error.message}`;
       AIDiv.appendChild(p);
-      console.error("Error: ", error);
     } finally {
       loading.remove();
       this.updateHistoryMenu();
