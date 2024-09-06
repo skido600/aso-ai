@@ -4,8 +4,10 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 class View {
   constructor() {
     this.chatHistory = [];
+    this.chatHistoryobj = {};
     this.aiIMG = ["2289_SkVNQSBGQU1PIDEwMjgtMTIy.jpg"];
     this.copy = ["copy.svg"];
+    this.arrow = ["arrow_down.svg"];
     this.menu = document.getElementById("menu");
     this.history = document.getElementById("history");
     this.input_mass = document.getElementById("input_mass");
@@ -16,8 +18,9 @@ class View {
     this.history_body = document.getElementById("history_body");
     this.history_clear = document.getElementById("history_clear");
     this.history_ul = document.getElementById("history_ul");
-
-    console.log(this.history_ul);
+    this.copeid = document.getElementById("copeid");
+    // this.copeid.style.display = "none";
+    // console.log(this.copeid);
 
     // Show history
     this.menu.addEventListener("click", () => {
@@ -42,12 +45,10 @@ class View {
       this.article_res.innerHTML = "";
     });
     this.history_clear.addEventListener("click", () => {
-      console.log("fm");
-
-      this.history_body.innerHTML = "";
+      this.history_ul.innerHTML = "";
       localStorage.removeItem("chatHistory");
     });
-    // Hide history on input focus
+
     this.input_mass.addEventListener("focus", () => {
       this.history.classList.add("translate-x-[-810px]");
     });
@@ -67,23 +68,19 @@ class View {
     localStorage.setItem("chatHistory", JSON.stringify(this.chatHistory));
   }
 
-  // Update history menu
   updateHistoryMenu() {
-    let uniqueChatHistory = [
-      ...new Set(this.chatHistory.map((entry) => entry.user)),
-    ];
-
-    console.log(uniqueChatHistory);
-
-    uniqueChatHistory.forEach((entry) => {
+    for (let v of Object.values(this.chatHistoryobj)) {
       let li = document.createElement("li");
-      if (entry.length > 20) {
-        li.textContent = `${entry.slice(0, 20)}......`;
+
+      if (v.length > 20) {
+        li.textContent = `${v.slice(0, 20)}...`;
       } else {
-        li.textContent = entry;
+        li.textContent = v;
       }
+
       this.history_ul.appendChild(li);
-    });
+      console.log(v);
+    }
   }
 
   async getAi() {
@@ -92,7 +89,7 @@ class View {
     const model = genAI.getGenerativeModel({
       model: "gemini-1.5-flash",
       systemInstruction:
-        "Your name is Askai. Whenever you're asked about your creator, say: 'I was created by an amazing guy named Leowave. His real name is Leonard Ebisi, also known as Leo X.' replace all * or ** from your responses to <strong>. Whenever you're asked, 'Did you know Leowave, Ebisi Leonard, or Leo X?' answer: 'Ooh, of course! Leowave, also known as Leo X, created me.",
+        "Your name is Askai. Whenever you're asked about your creator, say: 'I was created by an amazing guy named Leowave. His real name is Leonard Ebisi, also known as Leo X.' replace all * or ** from your responses to bold text. Whenever you're asked, 'Did you know Leowave, or Ebisi Leonard, or Leo X?' answer: 'Ooh, of course! Leowave, also known as Leo X, created me. ",
     });
     const prompt = this.input_mass.value.trim();
 
@@ -136,18 +133,30 @@ class View {
 
       for await (const chunk of result.stream) {
         let chunkText = await chunk.text();
-        combinedText += chunkText; // Collect all chunks
+        combinedText += chunkText;
 
         let p = document.createElement("div");
-        p.innerText = chunkText;
+
+        p.textContent = chunkText;
+        //if small text
+        if (combinedText.length < 100) {
+          copy.style.display = "none";
+        } else {
+          copy.style.display = "block";
+        }
         AIDiv.appendChild(p);
       }
 
-      // Add click listener for the copy button once
+      // copy
       copy.addEventListener("click", () => {
         navigator.clipboard
           .writeText(combinedText)
           .then(() => {
+            this.copeid.classList.add("come");
+            setTimeout(() => {
+              this.copeid.classList.remove("come");
+            }, 2000);
+
             console.log("success");
           })
           .catch((error) => {
@@ -155,6 +164,7 @@ class View {
           });
       });
 
+      this.chatHistoryobj.prompt = prompt;
       this.chatHistory.push({ user: prompt, reply: combinedText });
       this.saveChatHistory();
     } catch (error) {

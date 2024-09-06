@@ -851,9 +851,29 @@ body {
   border-radius: 9999px;
 }
 
-/* .reply-main {
-  @apply bg-gray-100 p-4 rounded-lg;
-} */
+#copeid {
+  position: fixed;
+  top: -50px;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  width: -moz-fit-content;
+  width: fit-content;
+  background-color: blue;
+  color: white;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  border-radius: 5px;
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+#copeid.come {
+  top: 20px;
+  opacity: 1;
+  transition: all 0.5s ease;
+}
 
 /* HTML: <div class="loader"></div> */
 
