@@ -19,8 +19,6 @@ class View {
     this.history_clear = document.getElementById("history_clear");
     this.history_ul = document.getElementById("history_ul");
     this.copeid = document.getElementById("copeid");
-    // this.copeid.style.display = "none";
-    // console.log(this.copeid);
 
     // Show history
     this.menu.addEventListener("click", () => {
