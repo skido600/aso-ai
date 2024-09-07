@@ -3,12 +3,9 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 class View {
   constructor() {
-    this.chatHistory = [];
-    this.chatHistoryobj = {};
     this.aiIMG = ["2289_SkVNQSBGQU1PIDEwMjgtMTIy.jpg"];
     this.copy = ["copy.svg"];
     this.arrow = ["arrow_down.svg"];
-    this.menu = document.getElementById("menu");
     this.history = document.getElementById("history");
     this.input_mass = document.getElementById("input_mass");
     this.send_mass = document.getElementById("send_mass");
@@ -19,36 +16,11 @@ class View {
     this.history_clear = document.getElementById("history_clear");
     this.history_ul = document.getElementById("history_ul");
     this.copeid = document.getElementById("copeid");
-
-    // Show history
-    this.menu.addEventListener("click", () => {
-      this.history.classList.toggle("translate-x-0");
-      this.history.classList.toggle("translate-x-[-810px]");
-    });
-
-    // Hide history when clicking outside of it
-    document.addEventListener("mousedown", (event) => {
-      if (!this.history.classList.contains("translate-x-[-810px]")) {
-        if (
-          !this.history.contains(event.target) &&
-          !this.menu.contains(event.target)
-        ) {
-          this.history.classList.add("translate-x-[-810px]");
-        }
-      }
-    });
+    console.log(this.erase);
 
     // Erase chat history
     this.erase.addEventListener("click", () => {
       this.article_res.innerHTML = "";
-    });
-    this.history_clear.addEventListener("click", () => {
-      this.history_ul.innerHTML = "";
-      localStorage.removeItem("chatHistory");
-    });
-
-    this.input_mass.addEventListener("focus", () => {
-      this.history.classList.add("translate-x-[-810px]");
     });
 
     // Send
@@ -59,26 +31,6 @@ class View {
         this.getAi();
       }
     });
-  }
-
-  // History logic
-  saveChatHistory() {
-    localStorage.setItem("chatHistory", JSON.stringify(this.chatHistory));
-  }
-
-  updateHistoryMenu() {
-    for (let v of Object.values(this.chatHistoryobj)) {
-      let li = document.createElement("li");
-
-      if (v.length > 20) {
-        li.textContent = `${v.slice(0, 20)}...`;
-      } else {
-        li.textContent = v;
-      }
-
-      this.history_ul.appendChild(li);
-      console.log(v);
-    }
   }
 
   async getAi() {
@@ -161,17 +113,12 @@ class View {
             console.log(error);
           });
       });
-
-      this.chatHistoryobj.prompt = prompt;
-      this.chatHistory.push({ user: prompt, reply: combinedText });
-      this.saveChatHistory();
     } catch (error) {
       let p = document.createElement("p");
       p.textContent = `Error: ${error.message}`;
       AIDiv.appendChild(p);
     } finally {
       loading.remove();
-      this.updateHistoryMenu();
       this.article_res.appendChild(AllAI);
     }
   }
