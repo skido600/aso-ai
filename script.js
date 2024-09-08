@@ -3,9 +3,9 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 class View {
   constructor() {
-    this.aiIMG = ["2289_SkVNQSBGQU1PIDEwMjgtMTIy.jpg"];
-    this.copy = ["copy.svg"];
-    this.arrow = ["arrow_down.svg"];
+    this.aiIMG = "2289_SkVNQSBGQU1PIDEwMjgtMTIy.jpg";
+    this.copy = "copy.svg";
+    this.arrow = "arrow_down.svg";
     this.history = document.getElementById("history");
     this.input_mass = document.getElementById("input_mass");
     this.send_mass = document.getElementById("send_mass");
@@ -18,7 +18,6 @@ class View {
     this.copeid = document.getElementById("copeid");
     console.log(this.erase);
 
-    // Erase chat history
     this.erase.addEventListener("click", () => {
       this.article_res.innerHTML = "";
     });
@@ -51,14 +50,14 @@ class View {
     // img
     let img = document.createElement("img");
     img.src = `/img/${this.aiIMG}`;
-    img.alt = "AI Image";
-    img.classList.add("ai-image");
+    img.alt = "AI_Image";
+    img.classList.add("ai_image");
 
     // copy
     let copy = document.createElement("img");
     copy.src = `/img/${this.copy}`;
     copy.alt = "AI_copy";
-    copy.classList.add("ai-copy");
+    copy.classList.add("ai_copy");
 
     let AIDiv = document.createElement("div");
     AIDiv.classList.add("reply_main");

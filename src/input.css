@@ -70,7 +70,7 @@ body {
   padding: 1rem;
 }
 
-.ai-copy {
+.ai_copy {
   cursor: pointer;
   float: right;
 }
@@ -78,7 +78,7 @@ body {
   @apply flex items-start  mb-4;
 }
 
-.ai-image {
+.ai_image {
   @apply w-12 h-12 rounded-full;
 }
 #copeid {
