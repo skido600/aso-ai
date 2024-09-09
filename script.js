@@ -1,5 +1,5 @@
 "use strict";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 
 class View {
   constructor() {
