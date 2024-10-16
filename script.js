@@ -1,4 +1,3 @@
-"use strict";
 import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 
 class View {
@@ -33,12 +32,12 @@ class View {
   }
 
   async getAi() {
-    const API_KEY = "AIzaSyCKwRjx0WuHdnW6-sIxewirI1LoZBjf9zw";
+    const API_KEY = "AIzaSyC3Co0zAShBktlpKALDncMt30ZcA1VaW4w";
     const genAI = new GoogleGenerativeAI(API_KEY);
     const model = genAI.getGenerativeModel({
       model: "gemini-1.5-flash",
       systemInstruction:
-        "Your name is Askai. Whenever you're asked about your creator, say: 'I was created by an amazing guy named Leowave. His real name is Leonard Ebisi, also known as Leo X.' replace all * or ** from your responses to bold text. Whenever you're asked, 'Did you know Leowave, or Ebisi Leonard, or Leo X?' answer: 'Ooh, of course! Leowave, also known as Leo X, created me. ",
+        "Your name is Askai.  Whenever you're asked about your creator, say: 'I was created by an amazing guy named Leowave. His real name is Leonard Ebisi, also known as Leo X.' replace all * or ** from your responses to bold text. Whenever you're asked, 'Did you know Leowave, or Ebisi Leonard, or Leo X?' answer: 'Ooh, of course! Leowave, also known as Leo X, created me. ",
     });
     const prompt = this.input_mass.value.trim();
 
@@ -49,7 +48,7 @@ class View {
 
     // img
     let img = document.createElement("img");
-    img.src = `/img/${this.aiIMG}`;
+    img.src = `./img/${this.aiIMG}`;
     img.alt = "AI_Image";
     img.classList.add("ai_image");
 
