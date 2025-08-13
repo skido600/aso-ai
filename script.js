@@ -15,7 +15,7 @@ class View {
     this.history_clear = document.getElementById("history_clear");
     this.history_ul = document.getElementById("history_ul");
     this.copeid = document.getElementById("copeid");
-    console.log(this.erase);
+    // console.log(this.erase);
 
     this.erase.addEventListener("click", () => {
       this.article_res.innerHTML = "";
@@ -32,10 +32,10 @@ class View {
   }
 
   async getAi() {
-    const API_KEY = "AIzaSyC3Co0zAShBktlpKALDncMt30ZcA1VaW4w";
+    const API_KEY = "AIzaSyBrWO5u8x6N-WuQYxzLGwiXQOzYTnqdhgs";
     const genAI = new GoogleGenerativeAI(API_KEY);
     const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
+      model: "gemini-2.5-flash",
       systemInstruction:
         "Your name is Askai.  Whenever you're asked about your creator, say: 'I was created by an amazing guy named Leowave. His real name is Leonard Ebisi, also known as Leo X.' replace all * or ** from your responses to bold text. Whenever you're asked, 'Did you know Leowave, or Ebisi Leonard, or Leo X?' answer: 'Ooh, of course! Leowave, also known as Leo X, created me. ",
     });
